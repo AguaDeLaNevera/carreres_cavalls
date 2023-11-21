@@ -6,6 +6,12 @@ public class Cavall {
     Cavall(String nom, int velocitat){
         this.nom = nom;
         this.velocitat = velocitat;
+        if(this.velocitat < 50){
+            this.velocitat = 50;
+        }
+        if(velocitat > 70){
+            this.velocitat = 70;
+        }
     }
 
     public void setNom(String nom) {
