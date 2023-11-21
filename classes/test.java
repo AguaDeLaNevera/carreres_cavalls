@@ -16,6 +16,7 @@ public class test extends Thread{
         System.out.println(c.getLongitud()+"km");
         System.out.println(c.getQuantitatCavalls()+" cavalls");
         double distancia_restant = c.getLongitud()*1000;
+        System.out.println(cavalls.get(0).getNom());
         System.out.print("X_START_LINE_X");
         while (iniciCursa) {
             int ms = (int) (cavalls.get(0).getVelocitat() / 3.6);
@@ -23,7 +24,7 @@ public class test extends Thread{
 
             try {
                 currentThread().sleep(1000);
-                System.out.print(cavalls.get(0).getNom() + "-"); // Print the horse name in front of the hyphen
+                System.out.print("-"); // Print the horse name in front of the hyphen
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
