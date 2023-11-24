@@ -1,0 +1,10 @@
+
+G	java:S106"+Replace this use of System.out by a logger.(–Ğ‚ø8Ê–¼ö¿1
+L	java:S106"+Replace this use of System.out by a logger.(àñ”ÿÿÿÿÿ8Ê–¼ö¿1
+L	java:S106"+Replace this use of System.out by a logger.(Ë’›•ÿÿÿÿÿ8Ê–¼ö¿1
+{
+java:S2142!"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(ä ¹€8Ë–¼ö¿1
+P
+java:S1481'".Remove this unused "increment" local variable.(Ó¯Œ‚şÿÿÿÿ8Ë–¼ö¿1
+L	java:S106("+Replace this use of System.out by a logger.(ĞüéÖıÿÿÿÿ8Ì–¼ö¿1
+L	java:S106+"+Replace this use of System.out by a logger.(©ÿ¹àùÿÿÿÿ8•ÆÆö¿1

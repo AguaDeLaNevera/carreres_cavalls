@@ -1,5 +1,9 @@
 package classes;
 
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 public class Cursa {
     String nomCursa;
     double longitud;
@@ -37,5 +41,9 @@ public class Cursa {
 
     public String getNomCursa() {
         return nomCursa;
+    }
+
+    public void sortByTime(List<Cavall> cavalls){
+        Collections.sort(cavalls, Comparator.comparingDouble(Cavall::getCompletionTime));
     }
 }

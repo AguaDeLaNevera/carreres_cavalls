@@ -112,8 +112,12 @@ public class creacioCavalls {
         List<Cavall> cavalls = new ArrayList<>();
         int quantitat = cursa.getQuantitatCavalls();
         for(int i=0; i<quantitat; i++){
-            int randomName = rndm.nextInt(100)+1;
-            Cavall cavall = new Cavall(nomsCavalls[randomName], 50);
+            int randomName = rndm.nextInt(100);
+            boolean steroidUser = false;
+            if(randomName > 80){
+                steroidUser = true;
+            }
+            Cavall cavall = new Cavall(nomsCavalls[randomName], 50, steroidUser);
             cavalls.add(cavall);
         }
         return cavalls;
