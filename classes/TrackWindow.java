@@ -35,7 +35,7 @@ public class TrackWindow extends JFrame {
 }
 
 class TrackPanel extends JPanel {
-    private static final int NUM_LANES = 20;
+    private static final int NUM_LANES = 10;
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -67,10 +67,32 @@ class TrackPanel extends JPanel {
             // Draw the lane as a ring segment
             g.fillArc(centerX - outerHorizontalRadius, centerY - outerVerticalRadius,
                     2 * outerHorizontalRadius, 2 * outerVerticalRadius, 0, 360);
+            //draw movement here
+            g.setColor(Color.black);
             g.setColor(getBackground());
+            // draw ellipse in the middle
             g.fillArc(centerX - innerHorizontalRadius, centerY - innerVerticalRadius,
-                    2 * innerHorizontalRadius, 2 * innerVerticalRadius, 0, 360);
+                  2 * innerHorizontalRadius, 2 * innerVerticalRadius, 0, 360);
         }
     }
 }
 
+class MovingObject{
+    int x;
+    int y;
+    int width;
+    int height;
+    int startAngle;
+    int finishAngle;
+    int speed;
+    MovingObject(int x, int y, int width, int height, int startAngle, int finishAngle, int speed){
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.startAngle = startAngle;
+        this.finishAngle = finishAngle;
+        this.speed = speed;
+    }
+
+}
