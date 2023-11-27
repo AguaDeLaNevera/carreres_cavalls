@@ -12,6 +12,9 @@ public class Programa {
         HorseRace t3 = new HorseRace(cavalls.get(2), cursa);
         HorseRace t4 = new HorseRace(cavalls.get(3), cursa);
         HorseRace t5 = new HorseRace(cavalls.get(4), cursa);
+        HorseRace t6 = new HorseRace(cavalls.get(5), cursa);
+        HorseRace t7 = new HorseRace(cavalls.get(6), cursa);
+        HorseRace t8 = new HorseRace(cavalls.get(7), cursa);
         System.out.println(cursa.getNomCursa());
         System.out.println(cursa.getLongitud() + "km");
         System.out.println(cursa.getQuantitatCavalls() + " cavalls");
@@ -22,6 +25,9 @@ public class Programa {
         t3.start();
         t4.start();
         t5.start();
+        t6.start();
+        t7.start();
+        t8.start();
 
         // Wait for each race thread to finish
         try {
@@ -30,6 +36,10 @@ public class Programa {
             t3.join();
             t4.join();
             t5.join();
+            t6.join();
+            t7.join();
+            t8.join();
+
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

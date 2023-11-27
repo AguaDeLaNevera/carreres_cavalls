@@ -10,7 +10,6 @@ public class HorseRace extends Thread{
         this.cavall = cavall;
     }
     public void run() {
-        System.out.println(""); // Imprimeix una línia en blanc per millorar la llegibilitat en la sortida
 
         long startTime = System.currentTimeMillis(); // Enregistra el temps d'inici de la cursa
         boolean iniciCursa = true;
@@ -18,7 +17,6 @@ public class HorseRace extends Thread{
 
         double distancia_inicial = c.getLongitud() * 1000; // Emmagatzema la distància inicial en metres
         double distancia_restant = distancia_inicial;
-        System.out.println(cavall.getNom()); // Imprimeix el nom del cavall
         while (iniciCursa) {
             double ms = cavall.getVelocitat() / 3.6;
             distancia_restant = distancia_restant - ms;
@@ -29,7 +27,7 @@ public class HorseRace extends Thread{
                 // Calcula la taxa d'acompliment i actualitza la barra de progrés
                 int completionRate = (int) (((distancia_inicial - distancia_restant) * 1.0 / distancia_inicial) * 100);
                 alternarVelocitat(cavall);
-                printProgressBar(completionRate, cavall.getVelocitat());
+                System.out.println(printProgressBar(completionRate, cavall.getVelocitat()));
 
             } catch (InterruptedException e) {
                 e.printStackTrace(); // Imprimeix la traça de l'excepció si hi ha algun problema amb la interrupció del fil
@@ -53,20 +51,28 @@ public class HorseRace extends Thread{
     }
 
 
-    private static void printProgressBar(int completionRate, double currentSpeed) {
+    private String printProgressBar(int completionRate, double currentSpeed) {
+        StringBuilder result = new StringBuilder();
+        result.append(cavall.getNom()).append(" ");
+
         int barLength = 20; // Adjust the length of the progress bar
         int progress = (int) (barLength * completionRate / 100.0);
-        System.out.print("\r");
-        System.out.print("[");
+
+
+
+        result.append("Progress: [");
         for (int i = 0; i < barLength; i++) {
             if (i < progress) {
-                System.out.print("=");
+                result.append("=");
             } else {
-                System.out.print(" ");
+                result.append(" ");
             }
         }
-        System.out.print("] " + completionRate + "% - Speed: " + currentSpeed + " km/h\r"); // Use carriage return to overwrite the current line
+        result.append("] ").append(completionRate).append("% - Speed: ").append(currentSpeed).append(" km/h");
+        return result.toString();
     }
+
+
     private static String formatElapsedTime(long elapsedTime) {
         // Convert milliseconds to minutes, seconds, and milliseconds
         elapsedTime = elapsedTime;
