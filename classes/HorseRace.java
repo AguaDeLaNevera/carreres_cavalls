@@ -15,10 +15,10 @@ public class HorseRace extends Thread{
         long startTime = System.currentTimeMillis(); // Enregistra el temps d'inici de la cursa
         boolean iniciCursa = true;
 
+
         double distancia_inicial = c.getLongitud() * 1000; // Emmagatzema la distància inicial en metres
         double distancia_restant = distancia_inicial;
         System.out.println(cavall.getNom()); // Imprimeix el nom del cavall
-
         while (iniciCursa) {
             double ms = cavall.getVelocitat() / 3.6;
             distancia_restant = distancia_restant - ms;

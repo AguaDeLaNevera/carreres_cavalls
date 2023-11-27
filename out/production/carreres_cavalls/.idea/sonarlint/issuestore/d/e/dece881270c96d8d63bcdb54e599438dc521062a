@@ -1,6 +1,5 @@
 
 k
-java:S3252
-"IUse static access with "javax.swing.WindowConstants" for "EXIT_ON_CLOSE".(Õû»öşÿÿÿÿ8½¢–åÀ1
-U
-java:S1612"8Replace this lambda with method reference 'Window::new'.(áÍ›Ü8À¢–åÀ1
+java:S3252"IUse static access with "javax.swing.WindowConstants" for "EXIT_ON_CLOSE".(Õû»öşÿÿÿÿ8Ä¿åÀ1
+Z
+java:S1612"=Replace this lambda with method reference 'TrackWindow::new'.(ÑÖ¾8’Ä¿åÀ1
