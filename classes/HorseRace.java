@@ -1,18 +1,22 @@
 package classes;
 
+import java.util.List;
 import java.util.Random;
 
 public class HorseRace extends Thread{
     Cursa c;
     Cavall cavall;
-    public HorseRace(Cavall cavall, Cursa c){
+    List<Cavall> cavalls;
+    private final Object lock = new Object();
+    private boolean pauseRequested = false;
+    private boolean iniciCursa = true;
+    public HorseRace(Cavall cavall, Cursa c, List<Cavall> cavalls){
         this.c = c;
         this.cavall = cavall;
+        this.cavalls = cavalls;
     }
     public void run() {
-
         long startTime = System.currentTimeMillis(); // Enregistra el temps d'inici de la cursa
-        boolean iniciCursa = true;
 
 
         double distancia_inicial = c.getLongitud() * 1000; // Emmagatzema la distància inicial en metres
@@ -22,19 +26,17 @@ public class HorseRace extends Thread{
             distancia_restant = distancia_restant - ms;
 
             try {
-                currentThread().sleep(1000);
-
+                sleep(1000);
                 // Calcula la taxa d'acompliment i actualitza la barra de progrés
                 int completionRate = (int) (((distancia_inicial - distancia_restant) * 1.0 / distancia_inicial) * 100);
                 alternarVelocitat(cavall);
                 System.out.println(printProgressBar(completionRate, cavall.getVelocitat()));
-
             } catch (InterruptedException e) {
                 e.printStackTrace(); // Imprimeix la traça de l'excepció si hi ha algun problema amb la interrupció del fil
             }
 
             if (distancia_restant <= 0) {
-                iniciCursa = false; // Finalitza la cursa quan la distància restant és menor o igual a zero
+                stopThread(); // Finalitza la cursa quan la distància restant és menor o igual a zero
             }
         }
 
@@ -92,6 +94,10 @@ public class HorseRace extends Thread{
         else{
             cavall.setVelocitat(cavall.getVelocitat()+randomNumber);
         }
+    }
+
+    public void stopThread() {
+        iniciCursa = false;
     }
 
 }

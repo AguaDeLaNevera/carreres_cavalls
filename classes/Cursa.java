@@ -8,6 +8,7 @@ public class Cursa {
     String nomCursa;
     double longitud;
     int quantitatCavalls;
+    boolean raceOnGoing = false;
 
     Cursa(String nomCursa, double longitud, int quantitatCavalls){
         this.nomCursa = nomCursa;
@@ -45,5 +46,17 @@ public class Cursa {
 
     public void sortByTime(List<Cavall> cavalls){
         Collections.sort(cavalls, Comparator.comparingDouble(Cavall::getCompletionTime));
+        int increment = 0;
+        for(Cavall cavall : cavalls){
+            if(cavall.getRealCompletionTime()!= null){
+                cavall.setPos(increment);
+                increment++;
+            }
+        }
     }
+
+    public void setRaceOnGoing(boolean raceOnGoing) {
+        this.raceOnGoing = raceOnGoing;
+    }
+    public boolean getRaceOnGoing(){return this.raceOnGoing;}
 }

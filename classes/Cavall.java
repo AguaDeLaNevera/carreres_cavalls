@@ -5,6 +5,7 @@ public class Cavall {
     boolean hasAnabolicSteroids;
     long completionTime;
     String realTime;
+    int pos = 0;
 
     Cavall(String nom, int velocitat, boolean hasAnabolicSteroids){
         this.nom = nom;
@@ -52,4 +53,7 @@ public class Cavall {
         this.realTime = temps;
     }
     public String getRealCompletionTime(){return this.realTime;}
+    public void setPos(int pos){
+        this.pos = pos;
+    }
 }
