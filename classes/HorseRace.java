@@ -1,6 +1,7 @@
 package classes;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 public class HorseRace extends Thread{
@@ -26,6 +27,27 @@ public class HorseRace extends Thread{
             distancia_restant = distancia_restant - ms;
 
             try {
+                synchronized (lock) {
+                    int increment = 0;
+                    for (Cavall cv : cavalls) {
+                        if (cv.getRealCompletionTime() != null) {
+                            increment++;
+                            if (increment == 3) {
+                                pauseRequested = true;
+                                increment = 0;
+                                while (pauseRequested) {
+                                    //hi ha d'haver un yes just abans
+                                    if(Objects.equals(c.getNomCursa(), "san pedro")){
+                                        pauseRequested = false;
+                                    }
+                                    else{
+                                        lock.wait();
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
                 sleep(1000);
                 // Calcula la taxa d'acompliment i actualitza la barra de progrés
                 int completionRate = (int) (((distancia_inicial - distancia_restant) * 1.0 / distancia_inicial) * 100);

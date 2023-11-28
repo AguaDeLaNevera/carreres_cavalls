@@ -45,7 +45,7 @@ public class Cursa {
     }
 
     public void sortByTime(List<Cavall> cavalls){
-        Collections.sort(cavalls, Comparator.comparingDouble(Cavall::getCompletionTime));
+        cavalls.sort(Comparator.comparingDouble(Cavall::getCompletionTime));
         int increment = 0;
         for(Cavall cavall : cavalls){
             if(cavall.getRealCompletionTime()!= null){
