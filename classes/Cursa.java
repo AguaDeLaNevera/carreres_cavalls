@@ -8,16 +8,15 @@ public class Cursa {
     String nomCursa;
     double longitud;
     int quantitatCavalls;
-    boolean raceOnGoing = false;
+    boolean raceOnGoing = true;
 
     Cursa(String nomCursa, double longitud, int quantitatCavalls){
         this.nomCursa = nomCursa;
         this.longitud = longitud;
         this.quantitatCavalls = quantitatCavalls;
-        /*
         if(this.quantitatCavalls < 10){
             this.quantitatCavalls = 10;
-        }*/
+        }
     }
 
     public void setLongitud(double longitud) {

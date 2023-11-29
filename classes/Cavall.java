@@ -6,6 +6,7 @@ public class Cavall {
     long completionTime;
     String realTime;
     int pos = 0;
+    double distanciaRecorreguda = 0;
 
     Cavall(String nom, int velocitat, boolean hasAnabolicSteroids){
         this.nom = nom;
@@ -56,4 +57,13 @@ public class Cavall {
     public void setPos(int pos){
         this.pos = pos;
     }
+
+    public void setDistanciaRecorreguda(double distanciaRecorreguda) {
+        this.distanciaRecorreguda = distanciaRecorreguda;
+    }
+
+    public double getDistanciaRecorreguda() {
+        return distanciaRecorreguda;
+    }
+
 }

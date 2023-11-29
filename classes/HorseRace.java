@@ -3,6 +3,7 @@ package classes;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
+import java.util.Scanner;
 
 public class HorseRace extends Thread{
     Cursa c;
@@ -10,6 +11,7 @@ public class HorseRace extends Thread{
     List<Cavall> cavalls;
     private final Object lock = new Object();
     private boolean pauseRequested = false;
+    private boolean userAnswered = false; // Flag to track whether the user has answered
     private boolean iniciCursa = true;
     public HorseRace(Cavall cavall, Cursa c, List<Cavall> cavalls){
         this.c = c;
@@ -24,35 +26,37 @@ public class HorseRace extends Thread{
         double distancia_restant = distancia_inicial;
         while (iniciCursa) {
             double ms = cavall.getVelocitat() / 3.6;
+            if(!c.getRaceOnGoing()){
+                distancia_restant = cavall.getDistanciaRecorreguda();
+            }
             distancia_restant = distancia_restant - ms;
-
+            if(distancia_restant < 0){
+                distancia_restant = 0;
+            }
+            cavall.setDistanciaRecorreguda(distancia_restant);
             try {
-                synchronized (lock) {
-                    int increment = 0;
+                sleep(1000);
+                // Calcula la taxa d'acompliment i actualitza la barra de progrés
+                int completionRate = (int) (((distancia_inicial - cavall.getDistanciaRecorreguda()) * 1.0 / distancia_inicial) * 100);
+                alternarVelocitat(cavall);
+                System.out.println(printProgressBar(completionRate, cavall.getVelocitat()));
+                long currentEndTime = System.currentTimeMillis();
+                long endTime = currentEndTime - startTime;
+
+                int increment = 0;
+                if(c.getRaceOnGoing()){
                     for (Cavall cv : cavalls) {
                         if (cv.getRealCompletionTime() != null) {
                             increment++;
                             if (increment == 3) {
-                                pauseRequested = true;
-                                increment = 0;
-                                while (pauseRequested) {
-                                    //hi ha d'haver un yes just abans
-                                    if(Objects.equals(c.getNomCursa(), "san pedro")){
-                                        pauseRequested = false;
-                                    }
-                                    else{
-                                        lock.wait();
-                                    }
-                                }
+                                stopThread();
+                                Thread.currentThread().interrupt();
+                                return;  // Optional: You might want to break out of the loop after interrupting
                             }
                         }
                     }
                 }
-                sleep(1000);
-                // Calcula la taxa d'acompliment i actualitza la barra de progrés
-                int completionRate = (int) (((distancia_inicial - distancia_restant) * 1.0 / distancia_inicial) * 100);
-                alternarVelocitat(cavall);
-                System.out.println(printProgressBar(completionRate, cavall.getVelocitat()));
+
             } catch (InterruptedException e) {
                 e.printStackTrace(); // Imprimeix la traça de l'excepció si hi ha algun problema amb la interrupció del fil
             }
@@ -73,7 +77,6 @@ public class HorseRace extends Thread{
         // Imprimeix la informació sobre la finalització de la cursa per al cavall
         System.out.println(cavall.getNom() + " ha acabat la carrera amb un temps de " + formattedTime + " a una velocitat de: " + cavall.getVelocitat() + "Km/h");
     }
-
 
     private String printProgressBar(int completionRate, double currentSpeed) {
         StringBuilder result = new StringBuilder();

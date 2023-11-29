@@ -1,12 +1,14 @@
 package classes;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Programa {
     public static void main(String[] arg) {
-
+        Scanner sc = new Scanner(System.in);
+        String userInput;
         creacioCavalls cr = new creacioCavalls();
-        Cursa cursa = new Cursa("san pedro", 0.5, 10);
+        Cursa cursa = new Cursa("sn pedro", 0.1, 10);
         List<Cavall> cavalls = cr.creacioCavall(cursa);
         List<Thread> threads = createThreads(cursa, cavalls);
         System.out.println(cursa.getNomCursa());
@@ -18,7 +20,21 @@ public class Programa {
 
         startThread(threads);
         joinThread(threads);
-
+        cursa.sortByTime(cavalls);
+        System.out.println("TOP 3");
+        for (Cavall cavall : cavalls) {
+            if (cavall.getRealCompletionTime() != null) {
+                System.out.println(cavall.getNom() + " " + cavall.getRealCompletionTime());
+            }
+        }
+        System.out.println("Vols continuar la carrera? Introdueix 'si' per continuar");
+        userInput = sc.nextLine();
+        if(userInput.equals("si")){
+            cursa.setRaceOnGoing(false);
+            threads = createThreads(cursa, cavalls);
+            startThread(threads);
+            joinThread(threads);
+        }
         // Once all threads have finished, continue with the ranking
         cursa.sortByTime(cavalls);
         System.out.println("RANKING");
@@ -46,7 +62,6 @@ public class Programa {
             for(Thread thread : t){
                 thread.join();
             }
-            System.out.println("holas  w0wuq 09e uq0w9 ueq09wu eq0w9ueqw0 e9uq");
         }
         catch(InterruptedException e){
             e.printStackTrace();
