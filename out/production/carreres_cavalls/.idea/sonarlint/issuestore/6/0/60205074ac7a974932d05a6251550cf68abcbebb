@@ -1,31 +1,26 @@
 
-r	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ûËÈ¦ÿÿÿÿÿ8Ö×Óö¿1
-r	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¸ˆ€Œşÿÿÿÿ8××Óö¿1
-†
-java:S4165H"iRemove this useless assignment; "elapsedTime" already holds the assigned value along all execution paths.(¶Šê¬8íå¯ö¿1
-W
-java:S1161":Add the "@Override" annotation above this method signature(“–ış8ä×Óö¿1
-L	java:S106"+Replace this use of System.out by a logger.(İâ”ûÿÿÿÿ8ñå¯ö¿1
-G	java:S106"+Replace this use of System.out by a logger.(Î¼8ñå¯ö¿1
+r	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ûËÈ¦ÿÿÿÿÿ8—§³ïÁ1
+r	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¸ˆ€Œşÿÿÿÿ8—§³ïÁ1
+‡
+java:S4165Œ"iRemove this useless assignment; "elapsedTime" already holds the assigned value along all execution paths.(¶Šê¬8 §³ïÁ1
+o
+java:S3776"RRefactor this method to reduce its Cognitive Complexity from 28 to the 15 allowed.(“–ış8¢§³ïÁ1
 {
-java:S2142""^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(ä ¹€8æ×Óö¿1
-R
-java:S2209"5Change this instance-reference to a static reference.(÷Ü•Á8æ×Óö¿1
-G	java:S1064"+Replace this use of System.out by a logger.(…İÚ€8òå¯ö¿1
-G	java:S106;"+Replace this use of System.out by a logger.(ùôîâ8ƒÿ×ÅÀ1
-L	java:S106<"+Replace this use of System.out by a logger.(µŸŞ…şÿÿÿÿ8ƒÿ×ÅÀ1
-G	java:S106?"+Replace this use of System.out by a logger.(òËÔ¨8„ÿ×ÅÀ1
-G	java:S106A"+Replace this use of System.out by a logger.(×•œ²8„ÿ×ÅÀ1
-L	java:S106D"+Replace this use of System.out by a logger.(ë¹™şÿÿÿÿÿ8„ÿ×ÅÀ1
-\
-java:S1854L":Remove this useless assignment to local variable "result".(êÓ³şÿÿÿÿÿ8òå¯ö¿1
-L
-java:S1656H"/Remove or correct this useless self-assignment.(¶Šê¬8òå¯ö¿1
+java:S2142@"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(ä ¹€8¤§³ïÁ1
+L	java:S106)"+Replace this use of System.out by a logger.(ÿã€Àüÿÿÿÿ8¤§³ïÁ1
+L	java:S106,"+Replace this use of System.out by a logger.(â’‹ºşÿÿÿÿ8‡€´ïÁ1
+G	java:S106]"+Replace this use of System.out by a logger.(…İÚ€8“ä´ïÁ1
+]
+java:S1854":Remove this useless assignment to local variable "result".(êÓ³şÿÿÿÿÿ8¨§³ïÁ1
 M
-java:S1481L"+Remove this unused "result" local variable.(êÓ³şÿÿÿÿÿ8òå¯ö¿1
-^
-java:S1854T"ARemove this useless assignment to local variable "boostedNumber".(¥¥¬¹8òå¯ö¿1
-:
-java:S2119Q"Save and re-use this "Random".(¼İÅf8óå¯ö¿1
-O
-java:S1481T"2Remove this unused "boostedNumber" local variable.(¥¥¬¹8ôå¯ö¿1
+java:S1656Œ"/Remove or correct this useless self-assignment.(¶Šê¬8¨§³ïÁ1
+N
+java:S1481"+Remove this unused "result" local variable.(êÓ³şÿÿÿÿÿ8©§³ïÁ1
+_
+java:S1854˜"ARemove this useless assignment to local variable "boostedNumber".(¥¥¬¹8©§³ïÁ1
+;
+java:S2119•"Save and re-use this "Random".(¼İÅf8ª§³ïÁ1
+P
+java:S1481˜"2Remove this unused "boostedNumber" local variable.(¥¥¬¹8ª§³ïÁ1
+K
+java:S1128".Remove this unused import 'java.util.Objects'.(¼¸õ›8œ¤¾ïÁ1

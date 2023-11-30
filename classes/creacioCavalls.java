@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 public class creacioCavalls {
+    //array amb 100 noms per cavalls
     String[] nomsCavalls = {
             "Relámpago",
             "Fuego",
@@ -108,6 +109,7 @@ public class creacioCavalls {
             "Ciruela"
     };
     Random rndm = new Random();
+    //métode per crear cavalls amb nom random
     public List<Cavall> creacioCavall(Cursa cursa) {
         List<Cavall> cavalls = new ArrayList<>();
         int quantitat = cursa.getQuantitatCavalls();
