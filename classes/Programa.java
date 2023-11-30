@@ -1,6 +1,7 @@
 package classes;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Programa {
@@ -14,9 +15,12 @@ public class Programa {
         System.out.println(cursa.getNomCursa());
         System.out.println(cursa.getLongitud() + "km");
         System.out.println(cursa.getQuantitatCavalls() + " cavalls");
-        cavalls.get(0).setVelocitat(70);
-        cavalls.get(1).setVelocitat(70);
-        cavalls.get(2).setVelocitat(70);
+
+        System.out.println("Dona ànims a un cavall!!");
+        displayHorses(cavalls);
+        userInput = sc.nextLine();
+        chosenHorse(cavalls, userInput);
+
 
         startThread(threads);
         joinThread(threads);
@@ -38,11 +42,17 @@ public class Programa {
         // Once all threads have finished, continue with the ranking
         cursa.sortByTime(cavalls);
         System.out.println("RANKING");
+        int pos = 0;
         for (Cavall cavall : cavalls) {
             if (cavall.getRealCompletionTime() != null) {
-                System.out.println(cavall.getNom() + " " + cavall.getRealCompletionTime());
+                pos++;
+                System.out.println(pos+"."+cavall.getNom() + " " + cavall.getRealCompletionTime());
             }
         }
+        controlAntiDoping(cavalls, cursa);
+        System.out.println("Control finalitzat, mostrant ranking final:");
+        displayRankingFinal(cavalls);
+
     }
     public static List<Thread> createThreads(Cursa c, List<Cavall> cv){
         List<Thread> threadList = new ArrayList<>();
@@ -66,6 +76,61 @@ public class Programa {
         catch(InterruptedException e){
             e.printStackTrace();
         }
+    }
+    public static void displayHorses(List<Cavall> cavalls){
+        for(Cavall c : cavalls){
+            System.out.print(c.getNom()+", ");
+        }
+    }
+    public static void chosenHorse(List<Cavall> cavalls, String userInput){
+        for(Cavall c : cavalls){
+            if(c.getNom().equals(userInput)){
+                c.setChosen(true);
+                c.setVelocitat(55);
+            }
+        }
+    }
+    public static void controlAntiDoping(List<Cavall> cavalls, Cursa c){
+        Random random = new Random();
+        if(cavalls.get(0).hasAnabolicSteroids){
+            int probability = random.nextInt(100);
+            if(probability > 50){
+                System.out.println("Oh no! " + cavalls.get(0).getNom() + " ha donat positiu en substàncies anabolitzants, aquest cavall serà desqualificat");
+                cavalls.get(0).obtenirTempsReal(null);
+                c.sortByTime(cavalls);
+            }
+        }
+        if(cavalls.get(1).hasAnabolicSteroids){
+            int probability = random.nextInt(100);
+            if(probability > 50){
+                System.out.println("Oh no! " + cavalls.get(1).getNom() + " ha donat positiu en substàncies anabolitzants, aquest cavall serà desqualificat");
+                cavalls.get(1).obtenirTempsReal(null);
+                c.sortByTime(cavalls);
+            }
+        }
+        if(cavalls.get(2).hasAnabolicSteroids){
+            int probability = random.nextInt(100);
+            if(probability > 50){
+                System.out.println("Oh no! " + cavalls.get(2).getNom() + " ha donat positiu en substàncies anabolitzants, aquest cavall serà desqualificat");
+                cavalls.get(2).obtenirTempsReal(null);
+                c.sortByTime(cavalls);
+            }
+        }
+    }
+    public static void displayRankingFinal(List<Cavall> cavalls) {
+        System.out.println("╔══════════════════════════════════════════════╗");
+        System.out.println("║                 RANKING FINAL                ║");
+        System.out.println("╠══════════════════════════════════════════════╣");
+
+        int pos = 0;
+        for (Cavall cavall : cavalls) {
+            if (cavall.getRealCompletionTime() != null) {
+                pos++;
+                System.out.printf("║ %-2d. %-20s %20s║%n", pos, cavall.getNom(), cavall.getRealCompletionTime());
+            }
+        }
+
+        System.out.println("╚══════════════════════════════════════════════╝");
     }
 
 }

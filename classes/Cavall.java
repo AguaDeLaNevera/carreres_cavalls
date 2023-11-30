@@ -4,8 +4,9 @@ public class Cavall {
     int velocitat = 50;
     boolean hasAnabolicSteroids;
     long completionTime;
+    long interruptedTime;
     String realTime;
-    int pos = 0;
+    boolean chosen = false;
     double distanciaRecorreguda = 0;
 
     Cavall(String nom, int velocitat, boolean hasAnabolicSteroids){
@@ -49,14 +50,20 @@ public class Cavall {
     public void obtenirTemps(long temps){
         this.completionTime = temps;
     }
+
+    public void setInterruptedTime(long interruptedTime) {
+        this.interruptedTime = interruptedTime;
+    }
     public long getCompletionTime(){return this.completionTime;}
+
+    public long getInterruptedTime() {
+        return interruptedTime;
+    }
+
     public void obtenirTempsReal(String temps){
         this.realTime = temps;
     }
     public String getRealCompletionTime(){return this.realTime;}
-    public void setPos(int pos){
-        this.pos = pos;
-    }
 
     public void setDistanciaRecorreguda(double distanciaRecorreguda) {
         this.distanciaRecorreguda = distanciaRecorreguda;
@@ -66,4 +73,11 @@ public class Cavall {
         return distanciaRecorreguda;
     }
 
+    public void setChosen(boolean chosen) {
+        this.chosen = chosen;
+    }
+
+    public boolean isChosen() {
+        return chosen;
+    }
 }

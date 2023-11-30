@@ -108,16 +108,22 @@ public class creacioCavalls {
             "Ciruela"
     };
     Random rndm = new Random();
-    public List<Cavall> creacioCavall(Cursa cursa){
+    public List<Cavall> creacioCavall(Cursa cursa) {
         List<Cavall> cavalls = new ArrayList<>();
         int quantitat = cursa.getQuantitatCavalls();
-        for(int i=0; i<quantitat; i++){
-            int randomName = rndm.nextInt(100);
-            boolean steroidUser = false;
-            if(randomName > 80){
-                steroidUser = true;
-            }
-            Cavall cavall = new Cavall(nomsCavalls[randomName], 50, steroidUser);
+
+        List<String> usedNames = new ArrayList<>();
+
+        for (int i = 0; i < quantitat; i++) {
+            String randomName;
+            do {
+                randomName = nomsCavalls[rndm.nextInt(nomsCavalls.length)];
+            } while (usedNames.contains(randomName));
+
+            usedNames.add(randomName);
+
+            boolean steroidUser = rndm.nextInt(100) > 80;
+            Cavall cavall = new Cavall(randomName, 50, steroidUser);
             cavalls.add(cavall);
         }
         return cavalls;

@@ -48,7 +48,6 @@ public class Cursa {
         int increment = 0;
         for(Cavall cavall : cavalls){
             if(cavall.getRealCompletionTime()!= null){
-                cavall.setPos(increment);
                 increment++;
             }
         }
