@@ -4,13 +4,15 @@ package classes;
 // Importació de classes necessàries
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 
 // Classe que representa una cursa de cavalls que estén els filtres Thread
 public class HorseRace extends Thread {
     Cursa c; // Instància de la cursa
     Cavall cavall; // Instància del cavall que participa en la cursa
-    List<Cavall> cavalls; // Llista de tots els cavalls de la cursa
+    final List<Cavall> cavalls; // Llista de tots els cavalls de la cursa
     private boolean iniciCursa = true; // Indica si la cursa està en curs
+    private static AtomicInteger currentIndex = new AtomicInteger(0);
 
     // Constructor amb paràmetres
     public HorseRace(Cavall cavall, Cursa c, List<Cavall> cavalls) {
@@ -54,12 +56,13 @@ public class HorseRace extends Thread {
                 int completionRate = (int) (((distancia_inicial - cavall.getDistanciaRecorreguda()) * 1.0 / distancia_inicial) * 100);
                 alternarVelocitat(cavall);
 
-                // Imprimeix la barra de progrés en funció de si el cavall ha estat escollit
+                int myIndex = currentIndex.getAndIncrement();
                 if (cavall.isChosen()) {
-                    System.out.println(printChosenProgressBar(completionRate, cavall.getVelocitat()));
+                    System.out.println(myIndex + ": " + printChosenProgressBar(completionRate, cavall.getVelocitat()));
                 } else {
-                    System.out.println(printProgressBar(completionRate, cavall.getVelocitat()));
+                    System.out.println(myIndex + ": " + printProgressBar(completionRate, cavall.getVelocitat()));
                 }
+
 
                 // Registra el temps actual i calcula el temps transcorregut des de l'inici de la cursa
                 long currentEndTime = System.currentTimeMillis();
@@ -72,7 +75,6 @@ public class HorseRace extends Thread {
                     for (Cavall cv : cavalls) {
                         if (cv.getRealCompletionTime() != null) {
                             increment++;
-
                             // Si s'han completat tres cavalls, s'interromp la cursa
                             if (increment == 3) {
                                 cavall.setInterruptedTime(endTime);
