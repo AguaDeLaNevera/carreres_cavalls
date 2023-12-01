@@ -117,7 +117,7 @@ public class HorseRace extends Thread {
         long endTime = System.currentTimeMillis(); // Registra el temps final de la cursa
         long elapsedTime = endTime - startTime; // Calcula el temps total transcorregut durant la cursa
 
-        String formattedTime = "";
+        String formattedTime;
 
         // Comprova si la cursa està en curs o si ha estat interrompuda
         if (c.getRaceOnGoing()) {
@@ -166,7 +166,6 @@ public class HorseRace extends Thread {
     // Mètode per formatar el temps transcorregut
     private static String formatElapsedTime(long elapsedTime) {
         // Converteix mil·lisegons a minuts, segons i mil·lisegons
-        elapsedTime = elapsedTime;
         long minutes = (elapsedTime / 1000) / 60;
         long seconds = (elapsedTime / 1000) % 60;
         long milliseconds = elapsedTime % 1000;
@@ -179,6 +178,7 @@ public class HorseRace extends Thread {
         int randomNumber = random.nextInt(11) - 5;
         if (cavall.hasAnabolicSteroids) {
             int boostedNumber = random.nextInt(20) - 3;
+            cavall.setVelocitat(cavall.getVelocitat() + boostedNumber);
         } else {
             cavall.setVelocitat(cavall.getVelocitat() + randomNumber);
         }
@@ -187,18 +187,6 @@ public class HorseRace extends Thread {
     // Mètode per aturar el fil
     public void stopThread() {
         iniciCursa = false;
-    }
-    // Method to sort the cavalls list alphabetically
-    private String getFastestHorse(List<Cavall> cavalls, Cursa cursa){
-        String fastestHorse = "";
-        double dist = cursa.longitud;
-        for(Cavall cavall : cavalls){
-            if(dist < cavall.getDistanciaRecorreguda()){
-                dist = cavall.getDistanciaRecorreguda();
-                fastestHorse = cavall.getNom();
-            }
-        }
-        return fastestHorse;
     }
     private int cavallsNull(List<Cavall> cavalls){
        int i = 0;

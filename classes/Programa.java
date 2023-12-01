@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 // Classe principal del programa
 public class Programa {
-    public static void main(String[] arg) {
+    public void programa() {
         Scanner sc = new Scanner(System.in);
         String userInput = "";
         boolean exit = true;
@@ -136,7 +136,7 @@ public class Programa {
         }
         if (!horseNames.isEmpty()) {
             horseNames.setLength(horseNames.length() - 2);
-            System.out.println(horseNames.toString());
+            System.out.println(horseNames);
         }
     }
 

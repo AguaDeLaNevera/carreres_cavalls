@@ -61,12 +61,6 @@ public class Cursa {
     // Mètode per ordenar els cavalls segons el temps de finalització
     public void sortByTime(List<Cavall> cavalls) {
         cavalls.sort(Comparator.comparingDouble(Cavall::getCompletionTime));
-        int increment = 0;
-        for (Cavall cavall : cavalls) {
-            if (cavall.getRealCompletionTime() != null) {
-                increment++;
-            }
-        }
     }
 
     // Mètode setter per indicar si la cursa està en curs
