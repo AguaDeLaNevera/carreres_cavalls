@@ -128,9 +128,15 @@ public class Programa {
     }
 
     // Mètode per mostrar els noms dels cavalls
-    public static void displayHorses(List<Cavall> cavalls){
-        for(Cavall c : cavalls){
-            System.out.print(c.getNom()+", ");
+    public static void displayHorses(List<Cavall> cavalls) {
+        StringBuilder horseNames = new StringBuilder();
+
+        for (Cavall c : cavalls) {
+            horseNames.append(c.getNom()).append(", ");
+        }
+        if (!horseNames.isEmpty()) {
+            horseNames.setLength(horseNames.length() - 2);
+            System.out.println(horseNames.toString());
         }
     }
 
@@ -154,7 +160,7 @@ public class Programa {
             for (int i = 0; i < 3; i++) {
                 if (cavalls.get(i).hasAnabolicSteroids) {
                     int probability = random.nextInt(100);
-                    if (probability > 50) {
+                    if (probability > 30) {
                         System.out.println("Oh no! " + cavalls.get(i).getNom() + " ha donat positiu en substàncies anabolitzants, aquest cavall serà desqualificat");
                         cavalls.get(i).obtenirTempsReal(null);
                         c.sortByTime(cavalls);
