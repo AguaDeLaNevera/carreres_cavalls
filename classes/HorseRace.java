@@ -4,7 +4,6 @@ package classes;
 // Importació de classes necessàries
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.atomic.AtomicInteger;
 
 // Classe que representa una cursa de cavalls que estén els filtres Thread
 public class HorseRace extends Thread {
@@ -12,8 +11,8 @@ public class HorseRace extends Thread {
     Cavall cavall; // Instància del cavall que participa en la cursa
     final List<Cavall> cavalls; // Llista de tots els cavalls de la cursa
     private boolean iniciCursa = true; // Indica si la cursa està en curs
-    private static AtomicInteger currentIndex = new AtomicInteger(0);
-
+    private static final Object lock = new Object();
+    private static int print = 0;
     // Constructor amb paràmetres
     public HorseRace(Cavall cavall, Cursa c, List<Cavall> cavalls) {
         this.c = c;
@@ -51,16 +50,35 @@ public class HorseRace extends Thread {
 
             try {
                 sleep(1000); // Pausa el fil durant un segon
-
                 // Calcula la taxa d'acompliment i imprimeix la barra de progrés
                 int completionRate = (int) (((distancia_inicial - cavall.getDistanciaRecorreguda()) * 1.0 / distancia_inicial) * 100);
                 alternarVelocitat(cavall);
 
-                int myIndex = currentIndex.getAndIncrement();
-                if (cavall.isChosen()) {
-                    System.out.println(myIndex + ": " + printChosenProgressBar(completionRate, cavall.getVelocitat()));
-                } else {
-                    System.out.println(myIndex + ": " + printProgressBar(completionRate, cavall.getVelocitat()));
+                boolean finishedPrinting = true; // Declare finishedPrinting outside the synchronized block
+
+                synchronized (lock) {
+                    // Wait until it's the horse's turn to print
+                    while (!finishedPrinting) {
+                        lock.wait();
+                    }
+
+
+                    // Print the progress bars for all horses
+                    if(print == 0){
+                        System.out.println("╔══════════════════════════════════════════════════════════════════════════════╗");
+                        System.out.println("║                                   #FASTHORSE                                 ║");
+                        System.out.println("╚══════════════════════════════════════════════════════════════════════════════╝");
+                        for (Cavall cav : cavalls) {
+                            int newCompletionRate = (int) (((distancia_inicial - cav.getDistanciaRecorreguda()) * 1.0 / distancia_inicial) * 100);
+                            System.out.println(printProgressBar(newCompletionRate, cav.getVelocitat(), cav));
+                        }
+                    }
+                    print++;
+                    // Notify other waiting threads
+                    lock.notifyAll();
+                }
+                if(print >= cavallsNull(cavalls)){
+                    print = 0;
                 }
 
 
@@ -119,20 +137,24 @@ public class HorseRace extends Thread {
     }
 
     // Mètode per imprimir la barra de progrés
-    private String printProgressBar(int completionRate, double currentSpeed) {
+    private String printProgressBar(int completionRate, double currentSpeed, Cavall cavall) {
         StringBuilder result = new StringBuilder();
-        result.append("\u001B[0m" + cavall.getNom()).append(" ");
 
-        int barLength = 20; // Ajusta la longitud de la barra de progrés
+        // Pad the horse's name to a fixed width
+        String paddedName = String.format("%-20s", cavall.getNom());
+
+        result.append("\u001B[0m").append(paddedName).append(" ");
+
+        int barLength = 20; // Adjust the length of the progress bar
         int progress = (int) (barLength * completionRate / 100.0);
 
         result.append("\u001B[0mProgress: [");
         for (int i = 0; i < barLength; i++) {
             if (i < progress) {
-                // Codi d'escapament ANSI per reiniciar el color
+                // ANSI escape code to reset the color
                 result.append("\u001B[0m=");
             } else {
-                // Codi d'escapament ANSI per reiniciar el color
+                // ANSI escape code to reset the color
                 result.append("\u001B[0m ");
             }
         }
@@ -140,27 +162,6 @@ public class HorseRace extends Thread {
         return result.toString();
     }
 
-    // Mètode per imprimir la barra de progrés amb color diferent si el cavall és escollit
-    private synchronized String printChosenProgressBar(int completionRate, double currentSpeed) {
-        StringBuilder result = new StringBuilder();
-        result.append(cavall.getNom()).append(" ");
-
-        int barLength = 20; // Ajusta la longitud de la barra de pro
-        int progress = (int) (barLength * completionRate / 100.0);
-
-        result.append("Progress: [");
-        for (int i = 0; i < barLength; i++) {
-            if (i < progress) {
-                // Codi d'escapament ANSI per color verd
-                result.append("\u001B[32m=");
-            } else {
-                // Codi d'escapament ANSI per reiniciar el color
-                result.append("\u001B[0m ");
-            }
-        }
-        result.append("] ").append(completionRate).append("% - Velocitat: ").append(currentSpeed).append(" km/h");
-        return result.toString();
-    }
 
     // Mètode per formatar el temps transcorregut
     private static String formatElapsedTime(long elapsedTime) {
@@ -186,5 +187,26 @@ public class HorseRace extends Thread {
     // Mètode per aturar el fil
     public void stopThread() {
         iniciCursa = false;
+    }
+    // Method to sort the cavalls list alphabetically
+    private String getFastestHorse(List<Cavall> cavalls, Cursa cursa){
+        String fastestHorse = "";
+        double dist = cursa.longitud;
+        for(Cavall cavall : cavalls){
+            if(dist < cavall.getDistanciaRecorreguda()){
+                dist = cavall.getDistanciaRecorreguda();
+                fastestHorse = cavall.getNom();
+            }
+        }
+        return fastestHorse;
+    }
+    private int cavallsNull(List<Cavall> cavalls){
+       int i = 0;
+       for(Cavall cavall : cavalls){
+           if(cavall.getRealCompletionTime() == null){
+               i++;
+           }
+       }
+       return i;
     }
 }

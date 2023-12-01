@@ -12,6 +12,7 @@ public class Cavall {
     String realTime; // Temps real en què es va completar la carrera
     boolean chosen = false; // Indica si el cavall ha estat escollit per a una carrera
     double distanciaRecorreguda = 0; // Distància recorreguda pel cavall en una carrera
+    boolean isPrinted = false;
 
     // Constructor amb paràmetres
     Cavall(String nom, int velocitat, boolean hasAnabolicSteroids) {
@@ -106,5 +107,17 @@ public class Cavall {
     // Mètode getter per indicar si ha estat escollit
     public boolean isChosen() {
         return chosen;
+    }
+
+    public void setPrinted(boolean printed) {
+        isPrinted = printed;
+    }
+
+    public boolean isPrinted() {
+        return isPrinted;
+    }
+
+    public void setHasAnabolicSteroids(boolean hasAnabolicSteroids) {
+        this.hasAnabolicSteroids = hasAnabolicSteroids;
     }
 }

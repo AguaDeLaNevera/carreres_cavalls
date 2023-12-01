@@ -139,7 +139,8 @@ public class Programa {
         for(Cavall c : cavalls){
             if(c.getNom().equals(userInput)){
                 c.setChosen(true);
-                c.setVelocitat(55);
+                c.setVelocitat(60);
+                c.setHasAnabolicSteroids(true);
             }
         }
     }
